@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>For Q</title>
+</head>
+<body>
+    <div class="container">
+        <div class="text">
+            <h1>Hey</h1>
+            <p>you there?</p><br>
+            <p>Umm... first of all tumne ye link kyu kholi? Humpe itna trust karti ho 😑 <br><br>
+                Chalo koi ni kholi to kholi par ye sab padh kyu rahi ho? 🤔 <br><br>
+                Accha chalo ab padh rahi ho to<div class="padho">padho</div>
+            </p> <br>
+
+            <div class="p1">
+                <p>
+                    Dekho baat ye hai ki ajj tumhara birthday hai right? To humne socha kyu na... <br>
+                    Tumhe pareshan kiya jaye :) <br> <br>
+                    To chalo niche scroll karo aur ye puzzel solve karo and have fun !!
+                </p>
+            </div>
+        </div>
+
+        <!-- A puzzel here with 4 questions that provide an ans in one digit that is then used in the locker 
+            below to unlock "Some special text :)" -->
+        <br><br>
+        <div class="pad">
+        <h1>Enter PIN</h1>
+        <br>
+            <div class="otp-bx">
+                <input type="number" id="digit1" maxlength="1" min="0" max="1" oninput="moveToNext(this, 'digit2')" onkeydown="handleBackspace(this, 'digit1')">
+                <input type="number" id="digit2" maxlength="1" min="0" max="1" oninput="moveToNext(this, 'digit3')" onkeydown="handleBackspace(this, 'digit1')">
+                <input type="number" id="digit3" maxlength="1" min="0" max="1" oninput="moveToNext(this, 'digit4')" onkeydown="handleBackspace(this, 'digit2')">
+                <input type="number" id="digit4" maxlength="1" min="0" max="1" oninput="moveToNext(checkDigits(), )"onkeypress="return event.charCode >= 48 && event.charCode <= 57" onkeydown="handleBackspace(this, 'digit3')">
+            </div>
+        </div>
+
+        <div class="q"><br>
+            <h2>1st-digit:</h2><br>
+            <div class="ques">My birthday's day's 1st digit <br> (_9/11/2006)</div><br><br>
+            <h2>2nd-digit</h2><br>
+            <div class="ques">Your birthday month (August)</div>
+            <br><br><br>
+            <h3>Last ke 2 digits tumhe pata hain.. trust me tumhe pata hain ;)</h3>
+        </div>
+    </div>
+
+    <script>
+
+        // Digits stored in a variable
+        const storedDigits = [2, 8, 2, 4];
+
+        // Error messages
+        const errorMessages = [
+            '🙃 nah',
+            'Umm... galat :|',
+            'Socho socho..',
+            '🙄 tumse na hopayega :/',
+            'Message karo batade',
+            'Manogi nahi oh haan bhool gye the ziddi ho..',
+
+        ];
+
+        let errorMessageIndex = 0; 
+
+        function moveToNext(currentInput, nextInputId) {
+            const currentLength = currentInput.value.length;
+            const maxLength = parseInt(currentInput.getAttribute('maxlength'));
+
+            if (currentLength === maxLength && nextInputId) {
+            document.getElementById(nextInputId).focus();
+            }
+        }
+
+
+        function checkDigits() {
+            // Get user input values
+            const inputDigit1 = document.getElementById('digit1').value;
+            const inputDigit2 = document.getElementById('digit2').value;
+            const inputDigit3 = document.getElementById('digit3').value;
+            const inputDigit4 = document.getElementById('digit4').value;
+
+            // Convert input values to integers
+            const enteredDigits = [parseInt(inputDigit1), parseInt(inputDigit2), parseInt(inputDigit3), parseInt(inputDigit4)];
+
+            // Check if entered digits match stored digits
+            const isMatch = JSON.stringify(enteredDigits) === JSON.stringify(storedDigits);
+
+            // Display result
+            if (isMatch) {
+                window.location.href ='pages/secret.html';
+                clearInputFields();
+            } else {
+                if (errorMessageIndex < errorMessages.length) {
+                    alert(errorMessages[errorMessageIndex]);
+                    errorMessageIndex++;
+                } else {
+                    alert('');
+                }
+                clearInputFields();
+            }
+
+            function clearInputFields() {
+                // Clear the input fields
+                document.getElementById('digit1').value = '';
+                document.getElementById('digit2').value = '';
+                document.getElementById('digit3').value = '';
+                document.getElementById('digit4').value = '';
+
+                // Focus on the first input field
+                document.getElementById('digit1').focus();
+            }
+        }
+    </script>
+</body>
+</html>
